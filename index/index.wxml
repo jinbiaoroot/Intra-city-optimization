@@ -1,0 +1,62 @@
+<view class="top_grid">
+  <view style="display: flex; flex-wrap:nowrap;">
+    <text style="color: white;margin-left: 10px;font-size: 16px;">当燃优选</text>
+    <input class="search" type="text" placeholder=" 搜索商圈/店名/校区/品类" value="" style="display: flex;"><van-icon name="search" />
+    </input>
+    <text style="color: white;margin-left: 20px;font-size: 16px;">{{location}}</text><van-icon name="arrow-down" style="color: white;"/>
+  </view>
+  <!-- 轮播图 -->
+  <view style="margin-top: 8px;">
+    <swiper class="swiper" indicator-dots="true" autoplay="true">
+     <swiper-item wx:for="{{swiperimages}}" wx:key="index">
+      <image style="border-radius: 20px;" src="{{item.images}}"></image>
+     </swiper-item>
+    </swiper>
+  </view>
+</view>
+<!-- 套餐类别图片导航栏 -->
+<view class="bottom-style">
+  <view class="bottom-item" wx:for="{{bottom_data}}" wx:key="index">
+    <image src="/images/{{item.icon}}"></image>
+    <text>{{item.title}}</text>
+  </view>
+</view>
+<!-- 滚动导航文字标签栏 -->
+<view class="scrollsytle">
+  <scroll-view scroll-x="true" enable-flex="true" show-scrollbar="false" enhanced="true">
+    <view style="white-space: nowrap;margin-left: 10px;">
+    <!-- text的样式有两个，一个是固定的，一个是选中动态的样式，动态样式用条件判断是否为true 并绑定触发函数处理判断条件数据(配置data-id)和获取数据库对应的数据内容-->
+      <text wx:for="{{scrolltext}}" wx:key="index" class="item {{cid==index?'item-active':''}}" bindtap="getproductdata" data-id="{{index}}">{{item}}</text>
+    </view>
+  </scroll-view>
+</view>
+<!-- 产品套餐主要信息栏 -->
+<view style="display: flex;flex-direction: column;">
+  <view class="productfor" wx:for="{{product}}" wx:key="index">
+    <view>
+      <swiper class="productimage" indicator-dots="true" autoplay="true">
+        <swiper-item wx:for="{{item.RotationChart}}" wx:for-item="itemb" wx:for-index="indexb" wx:key="indexb">
+          <image style="border-top-right-radius:15px;border-top-left-radius:15px;" src="{{itemb}}"></image>
+        </swiper-item>
+      </swiper>
+    </view>
+    <view style="margin-top: 7px;margin-left: 5px;display: flex;font-size: 0.9em;">
+      <text>【{{item.Business}}】</text>
+      <text>{{item.Introduce}}</text>
+    </view>
+    <view style="margin-top: 3px;margin-left: 5px;font-size: 0.9em;">
+      <text>【{{item.Shop_name}}】</text>
+      <text style="text-align:center;">{{item.Details}}</text>
+    </view>
+    <view wx:if="{{cid==1}}" class="kmstyle">
+    <!-- 距离显示，只有离我最近才需要满足if条件显示距离 -->
+      <image style="width: 23rpx;height: 24rpx;margin-top: 4px;margin-left: 1px; " src="/images/juli.png"></image>
+      <text style="margin-left: 3px;font-size: 0.8em;">{{item.distance}}</text>
+    </view>
+    <view style="display: flex;flex-direction: row;justify-content: flex-start;margin-top: 10px;margin-bottom: 25px;">
+      <text style="color: #E70808;margin-top: 6px;margin-left: 15px;">￥</text><text style="font-size: 1.4em;color: #E70808;margin-left: 0;padding-left: 0;font-weight: 700;">{{item.Price.Price}}</text>
+      <text style="color:#AAAAAA;margin-top: 10px;margin-left: 5px; text-decoration: line-through;font-size: 0.8em;">¥{{item.Price.OriginalPrice}}</text>
+      <button type="warn" size="mini" style="margin-right: 13px;width: 28%;">查看详情</button>
+    </view>
+  </view>
+</view>
